@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+    {% load static %}
+        {% block content %}
+            <div class="check">
+            <div class="mg">
+            <form method="post" actions="">
+                {% csrf_token %}
+                {{form}}
+                <input class="btn3 btn-primary" type="submit" value="Check"/>
+            </form>
+            <div>
+                {% for message in messages %}
+                <h3> {{message}}  </h3>
+                {% endfor %}
+            </div>
+            <table border="2" bordercolor="black" bgcolor="white" cellpadding="20" cellspacing="20" gridon>
+            <tr>
+            <th>#</th>
+            <th>id</th>
+            <th>SNo</th>
+            <th>Disease</th>
+            <th>Prescribed_medicine</th>
+            <th>Dosage</th>
+            <th>Side_Effects</th>
+            <th>Patient_Review</th>
+            <th>Price</th>
+            <th>User Experience</th>
+            </tr>
+            {% for instance in queryset %}
+            <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{instance.id}}</td>
+            <td>{{instance.SNo}}</td>
+            <td>{{instance.Disease}}</td>
+            <td><a href="{% url 'med_edit' id=instance.id %}"> {{instance.Prescribed_medicine}}</td>
+            <td>{{instance.Dosage}}</td>
+            <td>{{instance.Side_Effects}}</td>
+            <td>{{instance.Patient_Review}}</td>
+            <td>{{instance.Price}}</td>
+            <td><a href="{% url 'add_comment' id=instance.id %}">Post your experience</a><br>
+                {% if instance.comments.all %}
+                {% for comment in instance.comments.all %}
+                <b>{{comment.name}}</b> - {{comment.body}} <br>
+                {% endfor %}
+                {% endif %}
+            </td>
+    
+            <!--<td>{{instance.Feedback}}</td>-->
+            </tr>
+            {% endfor %}
+            </table>
+            <a href='feedback'><button class="btn btn-primary">Add another medicine</button></a>
+            </div>
+        </div>
+        {% endblock %}
+            

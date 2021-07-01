@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+    {% load static %}
+        {% block content %}
+            <div class="form-group">
+            <div class="addpost">
+                {% if user.is_authenticated %}
+                <h3>Post Experience</h3>
+                <form method="post">
+                    {% csrf_token %}
+                    {{form.as_p}}
+                    <input class="btn2 btn-primary" type="Submit" value="Save"/>
+                </form>
+                {% else %}
+                <h2>You are not logged in! Hence you are not allowed to add posts.</h2>
+                {% endif %}
+            </div>
+            </div>
+        {% endblock %}

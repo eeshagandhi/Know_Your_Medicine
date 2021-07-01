@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+            <div class="search">
+            <div class="mg">
+            <form method="post" actions="">
+                {% csrf_token %}
+                {{form}}
+                <input class="btn1 btn-primary" type="submit" value="Search"/>    
+            </form>
+            <div>
+                {% for message in messages %}
+                <h3> {{message}}  </h3>
+                {% endfor %}
+            </div>
+            <table border="2" bordercolor="black" bgcolor="white" cellpadding="20" cellspacing="20" gridon>
+            <tr>
+            <th>#</th>
+            <th>id</th>
+            <th>SNo</th>
+            <th>Disease</th>
+            <th>Prescribed_medicine</th>
+            <th>Dosage</th>
+            <th>Side_Effects</th>
+            <th>Patient Review</th>
+            <th>Price</th>
+            <th>User Experience</th>
+            </tr>
+            {% for instance in queryset %}
+            <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{instance.id}}</td>
+            <td>{{instance.SNo}}</td>
+            <td>{{instance.Disease}}</td>
+            <td>{{instance.Prescribed_medicine}}</td>
+            <td>{{instance.Dosage}}</td>
+            <td>{{instance.Side_Effects}}</td>
+            <td>{{instance.Patient_Review}}</td>
+            <td>{{instance.Price}}</td>
+            <td>
+                {% if instance.comments.all %}
+                {% for comment in instance.comments.all %}
+                <b>{{comment.name}}</b> - {{comment.body}} <br>
+                {% endfor %}
+                {% else %}
+                <h6>None</h6>
+                {% endif %}
+            </td>
+            <!--<td>{{instance.Feedback}}</td>-->
+            </tr>
+            {% endfor %}
+            </table>
+            </div>
+        </div>
+{% endblock %}
+            

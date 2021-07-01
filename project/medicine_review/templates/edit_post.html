@@ -1,0 +1,23 @@
+{% extends 'base2.html' %}
+    {% load static %}
+        {% block content %}
+            <div class="form-group">
+            <div class="editpost">
+                {% if user.is_authenticated %}
+                    {% if user.id == post.author.id %}
+                        <h3>Edit Post</h3>
+                        <form method="post" action="">
+                            {% csrf_token %}
+                            {{form.as_p}}
+                            <input class="btn2 btn-primary" type="Submit" value="Save"/>
+                        </form>
+                    {% else %}
+                    <h2>You are not allowed to edit this post.</h2>
+                    {% endif %}
+                {% else %}
+                <h2>You are not logged in! Hence you are not allowed to edit any posts.</h2>
+                {% endif %}
+            </div>
+            </div>
+        {% endblock %}
+            

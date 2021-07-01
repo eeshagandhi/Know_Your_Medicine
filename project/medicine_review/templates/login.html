@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+    {% load static %}
+        {% block content %}
+        <div class="login">
+            <form action="login" method="post">
+                {% csrf_token %}
+                <h4>Login</h4>
+                {% if messages %}
+                <div>
+                    {% for message in messages %}
+                    <div class="alert alert-success" role="alert">{{message}}</div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+                {% if error %}
+                <div class="alert alert-danger" role="alert">
+                    {{error}}
+                </div>
+                {% endif %}
+                <label><b>User Name</b></label>    
+                <input required type="text" name="username" id="username" placeholder="username"><br><br>
+                <label><b>Password</b></label>    
+                <input required type="password" name="password" id="password"  placeholder="password"><br><br>
+                <input type="submit" name="log" id="log" value="Log in"> <br><br>
+                <span>Don't have an account?</span><a href="register"> Register</a>   
+            </form>
+            </div>
+        {% endblock %}
+        

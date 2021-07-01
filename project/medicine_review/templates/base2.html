@@ -1,0 +1,236 @@
+{% load static %}
+<html>
+<head>
+<title>KYM</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" >
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
+<script src='https://kit.fontawesome.com/yourcode.js' crossorigin='anonymous'></script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<style>
+*
+{
+    padding:0;
+    margin:0;
+    font-family:'Times New Roman';
+}
+.navbar-brand b
+{
+    margin-top:0px;
+    padding-bottom: 0px;
+    padding-left: 10px;
+    color:cornsilk;
+    
+}
+.navbar-brand img{
+    margin-left: 10px ;
+}
+.menu-bar
+{
+    background-image:linear-gradient(to right,#7ca7e0,#6ddbef );
+}
+.nav-link
+{
+    font-size:16px;
+    color:blue !important;
+    margin:2px;
+}
+.navbar-nav
+{
+    padding-left: 300px;
+    list-style-type: None;
+}
+#navbarDropdown 
+{
+    margin-top: -7px;
+    
+}
+
+.navbar-nav li
+{
+    margin-right: 10px;
+}
+.menu-bar .navbar-toggler
+{
+    padding-right: 0;
+    outline:none;
+    border:none;
+}
+#footer
+{
+    background: linear-gradient(to right,#7ca7e0,#6ddbef );
+    padding:20px 10px 8px;
+}
+.footer-image
+{
+    margin-top:0px;
+    width:70px;
+    height:70px;
+}
+#footer p
+{
+    color:black;
+    text-align: center;
+}
+#footer a 
+{
+    color:black;
+    margin-left:10px;
+}
+hr
+{
+    background-color:black;    
+}
+.post
+{
+    width: 1000px;
+    height:500px; 
+    background-color: lavender;
+    margin: 40px 150px 40px 150px;
+    padding:10px;
+    text-align: justify;
+    overflow-y: scroll;
+} 
+.details
+{
+    width: 1000px;
+    height:100%;  
+    background-color: lavender;
+    margin: 40px 150px 40px 150px;
+    padding:20px;
+    text-align: justify;
+    overflow-y: scroll;
+} 
+.pbody{
+    background-color: white;
+    padding:15px;
+}
+.articles{
+    background-color: white;
+    padding:15px;
+}
+.btn5{
+    background-color: skyblue;
+    border:none;
+    border-radius: 5px;
+    height:40px;
+    width:100px;
+    color:black;
+}
+.addpost
+{
+    width: 1000px;
+    height:100%;  
+    background-color: lavender;
+    margin: 40px 150px 40px 150px;
+    padding:10px;
+    text-align: justify;
+} 
+.editpost
+{
+    width: 1000px;
+    height:100%;  
+    background-color: lavender;
+    margin: 40px 150px 40px 150px;
+    padding:10px;
+    text-align: justify;
+} 
+.deletepost
+{
+    width: 1000px;
+    height:100%;  
+    background-color: lavender;
+    margin: 40px 150px 40px 150px;
+    padding:10px;
+    text-align: justify;
+} 
+.btn2{
+    background-color: skyblue;
+    border:none;
+    border-radius: 5px;
+    height:40px;
+    width:60px;
+    color:black;
+}
+.btn{
+    background-color: skyblue;
+    border:none;
+    border-radius: 5px;
+    height:40px;
+    width:110px;
+    color:black;
+}
+body{
+    background-image: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)),url('{% static "images/med.jpg" %}');
+}
+</style>
+<script>
+    function out()
+    {
+        confirm("Logging out");
+    }
+    function googleTranslateElementInit()
+    {
+      new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+    }
+</script>
+</head>
+    <body>
+            <section id="header">
+                <div class="menu-bar">
+                <nav class="navbar navbar-expand-lg navbar-light ">
+                    
+                    <a class="navbar-brand" href="#"><img src="{% static 'images/logo.jpg' %}" width=50 height=50><b>KNOW YOUR MEDICINE</b></a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                      <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                      <ul class="navbar-nav ml-auto">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                             Categories
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                              {% for i in cat_menu %} 
+                              <li><a class="dropdown-item" href="{% url 'category' i %}">{{ i }}</a></li>
+                              {% endfor %}
+                              
+                            </ul>
+                          </li>
+                        {% if user.is_authenticated %}
+                        <li><a href="\main">Home</a></li>
+                        <li><span title="Know us a little better"><a href="\about">About</a></span></li>
+                        <li><span title="Share Knowledge"><a href="\blog">Blog</a></span></li>
+                        <li><a href="add_post">Add Post</a></li>
+                        <li><a href="add_category">Add Category</a></li>
+                        <li><a href="\profile">My Profile</a></li>
+                        <li onclick="out()"><a href="\accounts/logout">Log Out</a></li>
+                        {% else %}
+                        <li><a href="/">Home</a></li>
+                        <li><span title="Know us a little better"><a href="about">About</a></span></li>
+                        <li><span title="Share Knowledge"><a href="blog">Blog</a></span></li>
+                        <li><a href="\accounts/register">Register</a></li>
+                        <li><a href="\accounts/login">Login</a></li>
+                        {% endif %}
+                      </ul>
+                      <div id="google_translate_element"></div>
+                  </div>
+                </nav>
+                </div>
+            </section>
+            {% block content %}
+            {% endblock %}
+            <section id="footer" class="text-left">
+    
+                <img src="{% static 'images/logo.jpg' %}" align="left" class="footer-image" >
+                <a>CONTACT US<a><br>
+                <a href="#">&#9742 +91 7730905075</a><br>
+                <a href="#">&#9993 knowyourmedicine@gmail.com</a>
+            
+                <hr>
+                <p>Made with &#9829 by Eesha, Harsha and Sravya</p>  
+                
+            </section>
+    </body>
+</html>
+

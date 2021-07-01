@@ -1,0 +1,24 @@
+{% extends 'base2.html' %}
+    {% load static %}
+        {% block content %}
+           
+            <div class="form-group">
+            <div class="addpost">
+                {% if user.is_authenticated %}
+                <h3>Add Post</h3>
+                <form method="post">
+                    {% csrf_token %}
+                    {{form.as_p}}
+                    <input class="btn2 btn-primary" type="Submit" value="Save"/>
+                </form>
+                <script>
+                    var name="{{ user.id }}";
+                    document.getElementById("eesha").value=name
+                </script>
+                {% else %}
+                <h2>You are not logged in! Hence you are not allowed to add posts.</h2>
+                {% endif %}
+            </div>
+            </div>
+        {% endblock %}
+           

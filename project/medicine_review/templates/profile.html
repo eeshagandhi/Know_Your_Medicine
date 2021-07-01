@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+    {% load static %}
+        {% block content %}
+        <div class="profile">
+        <div class="info">
+            <h4>About me</h4>
+            <h6>Name: {{ user.first_name }} {{ user.last_name }} <br>User Name: {{ user.username}} <br>Email id: {{ user.email }}</h6>
+        
+        </div>
+        <div class="myposts">
+            <h4>My Posts</h4>
+            <ul>
+            {% for post in object_list %}
+                {% if user.id == post.author.id %}
+                <li><a href="{% url 'post_details' post.pk %}">{{ post.title }}</a>- <a href="{% url 'category' post.category %}">{{ post.category }}</a> - {{ post.author.first_name }} {{ post.author.last_name }} - <small> <a href="{% url 'edit_post' post.pk %}">(Edit)</a> <a href="{% url 'delete_post' post.pk %}">(Delete)</a></small><br/>
+                {{post.body|slice:":50"|safe}}</li>
+                {% endif %}
+            {% endfor %}
+            </ul>
+
+        </div>
+        </div>
+        </div>
+        {% endblock %}

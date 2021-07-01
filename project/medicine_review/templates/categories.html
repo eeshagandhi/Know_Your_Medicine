@@ -1,0 +1,24 @@
+{% extends 'base2.html' %}
+    {% load static %}
+        {% block content %}
+        <div class="post">
+        <h2> {{ cat }}</h2>
+        <ul>
+            {% for post in specific_posts %}
+            {% if user.is_authenticated %}
+            {% if user.id == post.author.id %}
+                <li><a href="{% url 'post_details' post.pk %}">{{ post.title }}</a>- {{ post.category }} - {{ post.author.first_name }} {{ post.author.last_name }} - <small> <a href="{% url 'edit_post' post.pk %}">(Edit)</a> <a href="{% url 'delete_post' post.pk %}">(Delete)</a></small><br/>
+                {{post.body|slice:":50"|safe}}</li>
+            {% else %}
+                <li><a href="{% url 'post_details' post.pk %}">{{ post.title }}</a>- {{ post.category }} - {{ post.author.first_name }} {{ post.author.last_name }}</a><br>
+                {{post.body|slice:":200"|safe}}</li>
+            {% endif %}
+            {% else %}
+                <li><a href="{% url 'post_details' post.pk %}">{{ post.title }}</a>- {{ post.category }} - {{ post.author.first_name }} {{ post.author.last_name }}</a><br>
+                {{post.body|slice:":200"|safe}}</li>
+            {% endif %}
+            {% endfor %}
+        </ul>
+        <a href="{% url 'blog' %}" class="btn btn-primary">Go Back</a>
+        </div>
+        {% endblock %}
