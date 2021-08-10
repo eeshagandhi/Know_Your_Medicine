@@ -111,16 +111,6 @@ class post_details(DetailView):
         context["cat_menu"]=cat_menu
         context["total_likes"]=total_likes
         return context
-
-#@login_required(login_url='accounts/login')
-#def add_post(request):
- #   form = AddForm(request.POST or None)
-  #  if form.is_valid():
-   #     form.save()
-    #context = {
-     #   "form": form,
-      #  }
-    #return render(request, 'add_post.html',context)
 class add_post(CreateView):
     model=post
     form_class=AddForm
